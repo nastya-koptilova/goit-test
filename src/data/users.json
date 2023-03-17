@@ -1,44 +1,44 @@
 [
   {
     "id": 1,
-    "user": "Ron",
+    "user": "Ronald",
     "tweets": 777,
     "followers": 100500,
-    "avatar": "/images/avatar.png"
+    "avatar": "https://iili.io/HXmtGvn.png"
   },
   {
     "id": 2,
-    "user": "Barty",
+    "user": "Luna",
     "tweets": 2156,
     "followers": 256200,
-    "avatar": "../../images/avatar-2.png"
+    "avatar": "https://iili.io/HXmtaBp.png"
   },
   {
     "id": 3,
     "user": "Evan",
     "tweets": 521,
     "followers": 100632,
-    "avatar": "../../images/avatar-3.png"
+    "avatar": "https://iili.io/HXmt12t.png"
   },
   {
     "id": 4,
-    "user": "Pansy",
+    "user": "Harry",
     "tweets": 965,
     "followers": 230240,
-    "avatar": "../../images/avatar-4.png"
+    "avatar": "https://iili.io/HXmtcEN.png"
   },
   {
     "id": 5,
-    "user": "Jinny",
+    "user": "James",
     "tweets": 1200,
     "followers": 300380,
-    "avatar": "../../images/avatar-5.png"
+    "avatar": "https://iili.io/HXmtEYX.png"
   },
   {
     "id": 6,
-    "user": "Harry",
+    "user": "Mary",
     "tweets": 365,
     "followers": 500660,
-    "avatar": "../../images/avatar-6.png"
+    "avatar": "https://iili.io/HXmtl4I.png"
   }
 ]

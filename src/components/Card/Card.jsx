@@ -1,80 +1,93 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Container,
-  Line,
-  Logo,
-  Avatar,
-  Tweets,
-  Followers,
-  Button,
+  List,
 } from './Card.Styled';
+import users from '../../data/users.json';
 import logo from '../../images/logo.svg';
 import background from '../../images/background.png';
-import avatar from '../../images/avatar.png';
-import users from '../../data/users.json';
+import { CardItem } from '../CardItem/CardItem.jsx';
 
 export const Card = () => {
-  const followersNumber = 100500;
-
-  const [follow, setFollow] = useState(false);
-  const [followers, setFollowers] = useState(followersNumber);
-  console.log(users);
+  const [usersData, setUsersData] = useState(users);
+  const [followers, setFollowers] = useState(
+    usersData.map(el => {
+      return { id: el.id, followers: el.followers };
+    })
+  );
+  const [button, setButton] = useState(
+    usersData.map(el => {
+      return { id: el.id, textButton: 'follow' };
+    })
+  );
 
   useEffect(() => {
-    const prevState = JSON.parse(localStorage.getItem('card'));
+    const prevState = JSON.parse(localStorage.getItem('users'));
     if (prevState) {
-      setFollow(prevState.follow);
       setFollowers(prevState.followers);
+      setButton(prevState.button);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('card', JSON.stringify({ follow, followers }));
-  }, [follow, followers]);
+    localStorage.setItem('users', JSON.stringify({ followers, button }));
+  }, [followers, button]);
 
-  const handleButton = () => {
-    if (follow) {
-      setFollow(false);
-      setFollowers(prevState => prevState - 1);
-      return;
+  const handleButton = event => {
+    const userId = event.target.id;
+    if (event.target.textContent === 'follow') {
+      setButton(prevState => {
+        const buttonFollowArr = prevState.filter(
+          el => Number(el.id) !== Number(userId)
+        );
+        return [...buttonFollowArr, { id: userId, textButton: 'following' }];
+      });
+      setFollowers(prevState => {
+        const user = prevState.find(el => Number(el.id) === Number(userId));
+        const newFollowers = prevState.filter(
+          el => Number(el.id) !== Number(userId)
+        );
+        return [...newFollowers, { id: userId, followers: user.followers + 1 }];
+      });
     }
-    setFollow(true);
-    setFollowers(prevState => prevState + 1);
+
+    if (event.target.textContent === 'following') {
+      setButton(prevState => {
+        const buttonFollowingArr = prevState.filter(
+          el => Number(el.id) !== Number(userId)
+        );
+        return [...buttonFollowingArr, { id: userId, textButton: 'follow' }];
+      });
+      setFollowers(prevState => {
+        const user = prevState.find(el => Number(el.id) === Number(userId));
+        const newFollowers = prevState.filter(
+          el => Number(el.id) !== Number(userId)
+        );
+        return [...newFollowers, { id: userId, followers: user.followers - 1 }];
+      });
+    }
   };
 
   return (
-    <div>
-      {users.map(el => {
+    <List>
+      {usersData.map(({ id, tweets, avatar }) => {
+        const userButton = button.find(el => Number(el.id) === Number(id));
+        const userFollowers = followers.find(
+          el => Number(el.id) === Number(id)
+        );
         return (
-          <Container key={el.id}>
-            <img src={background} alt="" />
-            <Logo src={logo} alt="" />
-            <Line></Line>
-            <Avatar src={`${el.avatar}`} alt="" />
-            <Tweets>{el.tweets} tweets</Tweets>
-            <Followers>
-              {el.followers.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}{' '}
-              Followers
-            </Followers>
-            <Button follow={follow} type="button" onClick={handleButton}>
-              {follow ? 'Following' : 'Follow'}
-            </Button>
-          </Container>
+          <CardItem
+            key={id}
+            id={id}
+            background={background}
+            logo={logo}
+            avatar={avatar}
+            tweets={tweets}
+            userFollowers={userFollowers}
+            userButton={userButton}
+            handleButton={handleButton}
+          ></CardItem>
         );
       })}
-      {/* <Container>
-        <img src={background} alt="" />
-        <Logo src={logo} alt="" />
-        <Line></Line>
-        <Avatar src={avatar} alt="" />
-        <Tweets>777 tweets</Tweets>
-        <Followers>
-          {followers.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} Followers
-        </Followers>
-        <Button follow={follow} type="button" onClick={handleButton}>
-          {follow ? 'Following' : 'Follow'}
-        </Button>
-      </Container> */}
-    </div>
+    </List>
   );
 };
