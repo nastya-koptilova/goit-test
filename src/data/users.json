@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "user": "Ron",
+    "tweets": 777,
+    "followers": 100500,
+    "avatar": "/images/avatar.png"
+  },
+  {
+    "id": 2,
+    "user": "Barty",
+    "tweets": 2156,
+    "followers": 256200,
+    "avatar": "../../images/avatar-2.png"
+  },
+  {
+    "id": 3,
+    "user": "Evan",
+    "tweets": 521,
+    "followers": 100632,
+    "avatar": "../../images/avatar-3.png"
+  },
+  {
+    "id": 4,
+    "user": "Pansy",
+    "tweets": 965,
+    "followers": 230240,
+    "avatar": "../../images/avatar-4.png"
+  },
+  {
+    "id": 5,
+    "user": "Jinny",
+    "tweets": 1200,
+    "followers": 300380,
+    "avatar": "../../images/avatar-5.png"
+  },
+  {
+    "id": 6,
+    "user": "Harry",
+    "tweets": 365,
+    "followers": 500660,
+    "avatar": "../../images/avatar-6.png"
+  }
+]
